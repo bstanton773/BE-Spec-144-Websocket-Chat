@@ -32,6 +32,18 @@ socket.on('message', (msg) => {
     messages.append(msgElement)
 })
 
+socket.on('initial_messages', (messages) => {
+    // Get the message ul and append the initial messages
+    let messageList = document.getElementById('messages')
+    messageList.innerHTML = '';
+    messages.forEach( msg => {
+        let msgElement = document.createElement('li')
+        msgElement.className = 'list-group-item'
+        msgElement.innerHTML = msg
+        messageList.append(msgElement)
+    })
+})
+
 
 // Create a loggedInUser
 

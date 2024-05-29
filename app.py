@@ -7,6 +7,8 @@ app.config['SECRET_KEY'] = 'super-secret-key'
 
 socketio = SocketIO(app)
 
+messages = []
+
 
 @app.route('/')
 def index():
@@ -16,6 +18,7 @@ def index():
 @socketio.on('connect')
 def handle_connect():
     print('Client has connected')
+    emit('initial_messages', messages)
 
 
 @socketio.on('disconnect')
@@ -45,6 +48,8 @@ def handle_chat_message(data):
     message = data.get('message')
     # Build the message
     output = f"<b>{username}</b>: {message}"
+    # Append the output to the messages list
+    messages.append(output)
     send(output, broadcast=True)
 
 if __name__ == "__main__":
