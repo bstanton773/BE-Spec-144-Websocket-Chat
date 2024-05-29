@@ -11,15 +11,27 @@ const socket = io()
 
 // socket.send({"name": "Brian"})
 
-socket.on('message', (data) => {
-    console.log("The client recevied this message:", data)
-})
+// socket.on('message', (data) => {
+//     console.log("The client recevied this message:", data)
+// })
 
 // socket.emit('custom_test_event', {"test": 123})
 
 // socket.on('another_event', (data) => {
 //     console.log('Another event received:', data)
 // })
+
+
+socket.on('message', (msg) => {
+    // Create a new li element
+    let msgElement = document.createElement('li')
+    msgElement.className = 'list-group-item'
+    msgElement.innerHTML = msg
+    // Get the message ul and append the new message
+    let messages = document.getElementById('messages')
+    messages.append(msgElement)
+})
+
 
 // Create a loggedInUser
 
