@@ -1,5 +1,5 @@
 from flask import Flask, render_template
-from flask_socketio import SocketIO
+from flask_socketio import SocketIO, send, emit
 
 
 app = Flask(__name__)
@@ -27,16 +27,25 @@ def handle_disconnect():
 def handle_message(data):
     print('The handle message received:', data, type(data))
     if isinstance(data, dict) and 'name' in data:
-        socketio.send(f"Hello from the server {data['name']}")
+        send(f"Hello from the server {data['name']}")
     else:
-        socketio.send('Hola')
+        send('Hola')
 
 
 @socketio.on('custom_test_event')
 def handle_cusom(data):
     print('Server handle custom received:', data)
-    socketio.emit('another_event', "I am ready for lunch!")
+    emit('another_event', "I am ready for lunch!")
 
+
+@socketio.on('send_chat_message')
+def handle_chat_message(data):
+    # Get the username and message from the data object
+    username = data.get('username')
+    message = data.get('message')
+    # Build the message
+    output = f"<b>{username}</b>: {message}"
+    send(output, broadcast=True)
 
 if __name__ == "__main__":
     socketio.run(app, debug=True)

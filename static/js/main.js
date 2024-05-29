@@ -11,9 +11,9 @@ const socket = io()
 
 // socket.send({"name": "Brian"})
 
-// socket.on('message', (data) => {
-//     console.log("The client handle message received:", data)
-// })
+socket.on('message', (data) => {
+    console.log("The client recevied this message:", data)
+})
 
 // socket.emit('custom_test_event', {"test": 123})
 
@@ -48,4 +48,19 @@ usernameForm.addEventListener('submit', (e) => {
     // Show the messages row
     messageRow = document.getElementById('messageRow')
     messageRow.style.display = 'block'
+})
+
+
+// Get the send chat form and add event listener to emit to send_chat_message
+const chatForm = document.getElementById('send-chat')
+
+chatForm.addEventListener('submit', (e) => {
+    e.preventDefault()
+    let message = e.target.message.value
+    let messageData = {
+        message: message,
+        username: loggedInUser
+    }
+    socket.emit('send_chat_message', messageData)
+    e.target.message.value = '';
 })
