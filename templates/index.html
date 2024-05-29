@@ -8,7 +8,7 @@
     <!-- Put the SocketIO CDN above any of our own JS -->
     <script src="https://cdn.socket.io/4.7.5/socket.io.min.js" integrity="sha384-2huaZvOR9iDzHqslqwpR87isEmrfxqyWOF7hr7BY6KG0+hVKLoEXMPUJw3ynWuhO" crossorigin="anonymous"></script>
     <!-- Our own JS -->
-    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}" defer></script>
 </head>
 <body>
     
@@ -19,9 +19,39 @@
     </nav>
 
     <div class="container">
+
+        <!-- Welcome Banner Row -->
         <div class="row">
             <div class="col">
-                <h1 class="text-center">Welcome to the Coding Temple Chat</h1>
+                <h1 class="text-center" id="welcome-banner">Welcome to the Coding Temple Chat</h1>
+            </div>
+        </div>
+
+        <!-- Username Form Row -->
+        <div class="row" id="usernameRow">
+            <div class="col">
+                <div class="card p-3">
+                    <form id="username-form">
+                        <input type="text" class="form-control" placeholder="Enter Username" id="username" name="username">
+                        <button type="submit" class="btn btn-outline-primary w-100 mt-3">Enter Username</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Messages Row -->
+        <div class="row" id="messageRow" style="display: none">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header">Messages</div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><b>Brian:</b> Hello</li>
+                        <li class="list-group-item"><b>David:</b> Hi</li>
+                        <li class="list-group-item"><b>Sarah:</b> What is up</li>
+                        <li class="list-group-item"><b>Aly:</b> Howdy</li>
+                        <li class="list-group-item"><b>Brian:</b> Goodbye</li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
