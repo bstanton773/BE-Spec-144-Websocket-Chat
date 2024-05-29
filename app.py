@@ -23,5 +23,20 @@ def handle_disconnect():
     print('Client has disconnected')
 
 
+@socketio.on('message')
+def handle_message(data):
+    print('The handle message received:', data, type(data))
+    if isinstance(data, dict) and 'name' in data:
+        socketio.send(f"Hello from the server {data['name']}")
+    else:
+        socketio.send('Hola')
+
+
+@socketio.on('custom_test_event')
+def handle_cusom(data):
+    print('Server handle custom received:', data)
+    socketio.emit('another_event', "I am ready for lunch!")
+
+
 if __name__ == "__main__":
     socketio.run(app, debug=True)
